@@ -31,9 +31,6 @@ export class AuthService {
     return throwError(error.error.message || "Something Went Wrong");
   }
 
-  private static log(message: string): any {
-    console.log(message);
-  }
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   login(loginData: any): Observable<any> {
@@ -60,8 +57,6 @@ export class AuthService {
   }
 
   refreshToken(refreshData: any): Observable<any> {
-    // this.tokenService.removeToken();
-    //this.tokenService.removeRefreshToken();
     console.log("REFRESH DAtA", refreshData);
     return this.http
       .post<any>(API_URL + "/token", { reftoken: refreshData }, HTTP_OPTIONS)
@@ -89,11 +84,17 @@ export class AuthService {
       );
   }
 
-  register(data: any): Observable<any> {
-    return this.http.post<any>(API_URL + "oauth/signup", data).pipe(
-      tap((_) => AuthService.log("register")),
-      catchError(AuthService.handleError)
-    );
+  register(registerData: any): Observable<any> {
+    this.tokenService.removeToken();
+    this.tokenService.removeRefreshToken();
+    this.tokenService.removeUserToken();
+    return this.http
+      .post<any>(
+        API_URL + "/register",
+        JSON.stringify(registerData),
+        HTTP_OPTIONS
+      )
+      .pipe(catchError(AuthService.handleError));
   }
 
   secured(): Observable<any> {

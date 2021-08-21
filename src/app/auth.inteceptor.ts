@@ -28,20 +28,9 @@ export class AuthInterceptor implements HttpInterceptor {
         setHeaders: {
           Authorization: "Bearer " + token,
         },
+        headers: request.headers.set("Accept", "application/json"),
       });
     }
-
-    if (!request.headers.has("Content-Type")) {
-      request = request.clone({
-        setHeaders: {
-          "content-type": "application/json",
-        },
-      });
-    }
-
-    request = request.clone({
-      headers: request.headers.set("Accept", "application/json"),
-    });
 
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
@@ -52,17 +41,27 @@ export class AuthInterceptor implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
         console.log(error.error.message, "SOME ERROR");
-        if (error.status === 401) {
-          if (error.error.err === "jwt expired") {
-            this.authService.refreshToken(refreshToken).subscribe(() => {
-              location.reload();
-            });
-          } else {
-            this.tokenService.removeToken();
-            this.tokenService.removeRefreshToken();
-            this.router
-              .navigate(["login"])
-              .then((_) => console.log("redirect to login"));
+        if (error.status === 403 && error.error.type === "reftoken") {
+          this.tokenService.removeToken();
+          this.tokenService.removeRefreshToken();
+          this.tokenService.removeUserToken();
+          this.router
+            .navigate(["login"])
+            .then((_) => console.log("redirect to login"));
+        } else {
+          if (error.status === 401) {
+            if (error.error.err === "jwt expired") {
+              this.authService.refreshToken(refreshToken).subscribe(() => {
+                location.reload();
+              });
+            } else {
+              this.tokenService.removeToken();
+              this.tokenService.removeRefreshToken();
+              this.tokenService.removeUserToken();
+              this.router
+                .navigate(["login"])
+                .then((_) => console.log("redirect to login"));
+            }
           }
         }
         return throwError(error);

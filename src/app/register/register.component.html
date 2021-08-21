@@ -1,0 +1,140 @@
+<div class="flex-center">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <mat-card class="example-card">
+    <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
+      <h2>Sign Up</h2>
+      <mat-form-field class="example-full-width">
+        <label>
+          <input
+            matInput
+            placeholder="First Name"
+            formControlName="firstname"
+            [errorStateMatcher]="matcher"
+          />
+        </label>
+        <mat-error>
+          <span
+            *ngIf="
+              !registerForm.get('firstname').valid &&
+              registerForm.get('firstname').touched
+            "
+            >Please enter FirstName</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <label>
+          <input
+            matInput
+            placeholder="Last Name"
+            formControlName="lastname"
+            [errorStateMatcher]="matcher"
+          />
+        </label>
+        <mat-error>
+          <span
+            *ngIf="
+              !registerForm.get('lastname').valid &&
+              registerForm.get('lastname').touched
+            "
+            >Please enter Last Name</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <label>
+          <input
+            matInput
+            placeholder="Email ID"
+            formControlName="email_id"
+            [errorStateMatcher]="matcher"
+          />
+        </label>
+        <mat-error>
+          <span
+            *ngIf="
+              !registerForm.get('email_id').valid &&
+              registerForm.get('email_id').touched
+            "
+            >Please enter your Email ID</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <label>
+          <input
+            type="password"
+            matInput
+            placeholder="Password"
+            formControlName="password"
+            [errorStateMatcher]="matcher"
+          />
+        </label>
+        <mat-error>
+          <span
+            *ngIf="
+              !registerForm.get('password').valid &&
+              registerForm.get('password').touched
+            "
+            >Please enter Password</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <label>
+          <input
+            type="datetime-local"
+            matInput
+            placeholder="Date Of Birth"
+            formControlName="password"
+            [errorStateMatcher]="matcher"
+          />
+        </label>
+        <mat-error>
+          <span
+            *ngIf="
+              !registerForm.get('password').valid &&
+              registerForm.get('password').touched
+            "
+            >Please enter your date of birth</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Role</mat-label>
+        <mat-select [formControl]="roleControl" required>
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let r of roles" [value]="r">
+            {{ r.viewValue }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="roleControl.hasError('required')"
+          >Please choose an Role</mat-error
+        >
+        <!--  <mat-hint>{{ roleControl.value?.value }}</mat-hint> -->
+      </mat-form-field>
+
+      <div>
+        <button
+          class="button-row"
+          type="submit"
+          [disabled]="!registerForm.valid"
+          mat-flat-button
+          color="primary"
+        >
+          <mat-icon>how_to_reg</mat-icon>Register
+        </button>
+      </div>
+      <div class="button-row">
+        <h4>Already registered?</h4>
+      </div>
+      <div class="button-row">
+        <a mat-flat-button color="primary" [routerLink]="['/login']"
+          ><mat-icon>login</mat-icon>Login</a
+        >
+      </div>
+    </form>
+  </mat-card>
+</div>
