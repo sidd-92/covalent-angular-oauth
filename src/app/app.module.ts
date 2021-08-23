@@ -7,6 +7,7 @@ import { CovalentStepsModule } from "@covalent/core/steps";
 import { MatListModule } from "@angular/material/list";
 import { CovalentHttpModule } from "@covalent/http";
 import { CovalentHighlightModule } from "@covalent/highlight";
+import { MatDatepickerModule } from "@angular/material/datepicker";
 import { CovalentMarkdownModule } from "@covalent/markdown";
 import { CovalentDynamicFormsModule } from "@covalent/dynamic-forms";
 import { CovalentBaseEchartsModule } from "@covalent/echarts/base";
@@ -27,11 +28,18 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatTableModule } from "@angular/material/table";
 import { MatSelectModule } from "@angular/material/select";
-import { RegisterComponent } from './register/register.component';
-import { SecureComponent } from './secure/secure.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { RegisterComponent } from "./register/register.component";
+import { SecureComponent } from "./secure/secure.component";
+import { NotFoundComponent } from "./not-found/not-found.component";
+import { MatNativeDateModule } from "@angular/material/core";
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, SecureComponent, NotFoundComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    SecureComponent,
+    NotFoundComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -40,6 +48,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MatPaginatorModule,
     MatFormFieldModule,
     MatTableModule,
+    MatNativeDateModule,
     MatSortModule,
     MatCardModule,
     MatSelectModule,
@@ -49,6 +58,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MatListModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatDatepickerModule,
     FormsModule,
     MatIconModule,
     MatButtonModule,
