@@ -1,0 +1,29 @@
+<div class="flex-center" style="height: 100vh">
+	<h1>Register New User</h1>
+	<mat-card class="example-card mat-elevation-z8">
+		<td-dynamic-forms #idForm [elements]="textElements">
+			<ng-template let-element ngFor [ngForOf]="textElements">
+				<ng-template let-control="control" [tdDynamicFormsError]="element.name">
+					<span *ngIf="control.touched || !control.pristine">
+						<span *ngIf="control.hasError('reqLen')"> Length Of String Should be 4-20 Characters.</span>
+						<span *ngIf="control.hasError('pattern')"> No Numbers, Only Small Case Alphabets Allowed.</span>
+						<span *ngIf="control.hasError('oneNumber')">At Least 1 Number.</span>
+						<span *ngIf="control.hasError('length')">Length Of String Should be 4-20 Characters.</span>
+						<span *ngIf="control.hasError('oneSpecialChar')">1 special character needed. ["!", "@", "#", "$", "%"]</span>
+						<span *ngIf="control.hasError('emailValid')">Format Incorrect eg. abcd@fullstack.com</span>
+						<span *ngIf="control.hasError('notEmpty')">Please Enter DOB</span>
+					</span>
+				</ng-template>
+			</ng-template>
+		</td-dynamic-forms>
+		<button style="width: 100%; margin-top: 10px" [disabled]="!idForm.valid" mat-raised-button (click)="submitManualValidator()" color="primary" class="text-upper font-bold">Submit</button>
+	</mat-card>
+	<div class="flex-row margin-top">
+		<div class="button-row">
+			<p class="font-light">Already registered?</p>
+		</div>
+		<div class="button-row">
+			<a mat-flat-button color="accent" [routerLink]="['/login']"><mat-icon>login</mat-icon>Login</a>
+		</div>
+	</div>
+</div>
