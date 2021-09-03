@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-covalentangularoauth-dev-110556-authRole",
+      "UnauthRoleArn": "arn:aws:iam::594502627121:role/amplify-covalentangularoauth-dev-110556-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::594502627121:role/amplify-covalentangularoauth-dev-110556-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-covalentangularoauth-dev-110556-deployment",
+      "UnauthRoleName": "amplify-covalentangularoauth-dev-110556-unauthRole",
+      "StackName": "amplify-covalentangularoauth-dev-110556",
+      "StackId": "arn:aws:cloudformation:ap-south-1:594502627121:stack/amplify-covalentangularoauth-dev-110556/d2878b70-0c78-11ec-9f84-0286ddf1872e",
+      "AmplifyAppId": "d2mhftdp0bwv4g"
+    },
+    "categories": {
+      "auth": {
+        "covalentangularoauthaa47caac": {}
+      }
+    }
+  }
+}

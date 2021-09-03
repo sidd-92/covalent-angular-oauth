@@ -5,7 +5,8 @@ import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Valida
 import { Router, ActivatedRoute } from "@angular/router";
 import { UserService } from "../user.service";
 import { filter } from "rxjs/operators";
-
+import { onAuthUIStateChange, CognitoUserInterface, AuthState } from "@aws-amplify/ui-components";
+import Amplify, { Auth, Hub } from "aws-amplify";
 import { ITdDynamicElementConfig, TdDynamicElement, TdDynamicType, TdDynamicFormsComponent } from "@covalent/dynamic-forms";
 export class MyErrorStateMatcher implements ErrorStateMatcher {
 	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -55,6 +56,13 @@ export class LoginComponent implements OnInit {
 	serverError = false;
 	serverErrorMessage = "";
 	matcher = new MyErrorStateMatcher();
+	title = "amplify-angular-auth";
+	formFields = [];
+	federated = {
+		googleClientId: "149652306515-t16umlu48imhdt8as6iis101pe2kr5qc.apps.googleusercontent.com", // Enter your googleClientId here
+	};
+	user: CognitoUserInterface | undefined;
+	authState: AuthState;
 	constructor(
 		private cdRef: ChangeDetectorRef,
 		private authService: AuthService,
@@ -74,6 +82,15 @@ export class LoginComponent implements OnInit {
 			}
 			this.cdRef.detectChanges();
 		});
+		onAuthUIStateChange((authState, authData) => {
+			this.authState = authState;
+			this.user = authData as CognitoUserInterface;
+			this.cdRef.detectChanges();
+		});
+	}
+
+	ngOnDestroy() {
+		return onAuthUIStateChange;
 	}
 
 	submitManualValidator(): void {

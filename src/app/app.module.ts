@@ -34,9 +34,16 @@ import { LoginComponent } from "./login/login.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { RegisterComponent } from "./register/register.component";
 import { SecureComponent } from "./secure/secure.component";
+import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth/lib/types";
+import { AmplifyUIAngularModule } from "@aws-amplify/ui-angular";
+import Amplify, { Auth, Hub } from "aws-amplify";
+import awsconfig from "../aws-exports";
+
+Amplify.configure(awsconfig);
 @NgModule({
 	declarations: [AppComponent, LoginComponent, RegisterComponent, SecureComponent, NotFoundComponent],
 	imports: [
+		AmplifyUIAngularModule,
 		BrowserModule,
 		AppRoutingModule,
 		CovalentLayoutModule,
