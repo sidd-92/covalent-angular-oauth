@@ -1,0 +1,44 @@
+.example-card {
+	min-width: 20%;
+	margin-top: 10px;
+}
+
+.flex-center {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.margin-top {
+	margin-top: 20px;
+}
+
+.underline {
+	text-decoration: underline;
+}
+
+.message-box {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #f4ff81;
+	padding: 10px;
+	border-radius: 8px;
+	font-size: 16px;
+	margin-bottom: 10px;
+	color: #03071e;
+}
+
+.error {
+	background-color: crimson;
+	color: white;
+}

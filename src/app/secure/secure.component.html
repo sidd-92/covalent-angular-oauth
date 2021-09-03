@@ -1,48 +1,66 @@
-<div class="">
-  <div class="example-loading-shade" *ngIf="isLoadingResults">
-    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-  </div>
-  <mat-card class="example-card">
-    <h4>Dashboard</h4>
-    <div class="flex-row margin-bottom">
-      <div class="info-mar">
-        <p class="mat-title titleMar">First Name</p>
-        <p class="mat-body no-mar">{{ user.firstname }}</p>
-      </div>
-      <div class="info-mar">
-        <p class="mat-title titleMar">Last Name</p>
-        <p class="mat-body no-mar">{{ user.lastname }}</p>
-      </div>
-      <div class="info-mar">
-        <p class="mat-title titleMar">Username</p>
-        <p class="mat-body no-mar">{{ user.username }}</p>
-      </div>
-      <div class="info-mar">
-        <p class="mat-title titleMar">Email</p>
-        <p class="mat-body no-mar">{{ user.email_id }}</p>
-      </div>
-      <div class="info-mar">
-        <p class="mat-title titleMar">Role</p>
-        <p class="mat-body no-mar">{{ user.role }}</p>
-      </div>
-      <div class="info-mar">
-        <p class="mat-title titleMar">Date Of Birth</p>
-        <p class="mat-body no-mar">{{ user.dob | uppercase }}</p>
-      </div>
-      <div class="info-mar">
-        <p class="mat-title titleMar">Account Created</p>
-        <p class="mat-body no-mar">{{ user.account_created_at | uppercase }}</p>
-      </div>
-      <div class="info-mar">
-        <p class="mat-title titleMar">Password</p>
-        <p class="mat-body no-mar">****</p>
-      </div>
-    </div>
+<td-layout class="layout-nav-demo" sidenavWidth="280px">
+	<!-- <td-navigation-drawer flex sidenavTitle="Profile" name="{{ user.firstname }} {{ user.lastname }}" email="{{ user.email_id }}">
+    <mat-nav-list>
+      
+    </mat-nav-list>
+  </td-navigation-drawer> -->
+	<td-layout-nav toolbarTitle="{{ user.role }} View Dashboard" color="{{ color }}" navigationRoute="/">
+		<!-- <button mat-icon-button td-menu-button tdLayoutToggle>
+      <mat-icon>menu</mat-icon>
+    </button> -->
+		<div td-toolbar-content style="margin-left: auto">
+			<div class="flex-center" style="margin-top: 8px">
+				<a style="cursor: pointer" (click)="logout()" mat-list-item>
+					<mat-icon>logout</mat-icon>
+				</a>
+			</div>
+		</div>
 
-    <div class="button-row">
-      <a mat-flat-button color="primary" (click)="logout()"
-        ><mat-icon>logout</mat-icon>Logout</a
-      >
-    </div>
-  </mat-card>
-</div>
+		<div>
+			<div class="example-loading-shade" *ngIf="isLoadingResults">
+				<mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+			</div>
+			<mat-card class="example-card mat-elevation-z8">
+				<p class="font-bold" style="font-size: 28px">{{ user.role }} Details</p>
+				<div class="flex-center-items">
+					<div class="info-mar">
+						<p class="mat-title titleMar font-bold">First Name</p>
+						<p class="mat-body no-mar">{{ user.firstname }}</p>
+					</div>
+					<div class="info-mar">
+						<p class="mat-title titleMar font-bold">Last Name</p>
+						<p class="mat-body no-mar">{{ user.lastname }}</p>
+					</div>
+					<div class="info-mar">
+						<p class="mat-title titleMar font-bold">Username</p>
+						<p class="mat-body no-mar">{{ user.username }}</p>
+					</div>
+					<div class="info-mar">
+						<p class="mat-title titleMar font-bold">Email</p>
+						<p class="mat-body no-mar">{{ user.email_id }}</p>
+					</div>
+					<div class="info-mar">
+						<p class="mat-title titleMar font-bold">Role</p>
+						<p class="mat-body no-mar">{{ user.role }}</p>
+					</div>
+					<div class="info-mar">
+						<p class="mat-title titleMar font-bold">Date Of Birth</p>
+						<p class="mat-body no-mar">{{ user.dob | uppercase }}</p>
+					</div>
+					<div class="info-mar">
+						<p class="mat-title titleMar">Account Created</p>
+						<p class="mat-body no-mar">{{ user.account_created_at | uppercase }}</p>
+					</div>
+					<div class="info-mar">
+						<p class="mat-title titleMar">Password</p>
+						<p class="mat-body no-mar">****</p>
+					</div>
+				</div>
+
+				<div class="button-row">
+					<a mat-flat-button color="primary" (click)="logout()"><mat-icon>logout</mat-icon>Logout</a>
+				</div>
+			</mat-card>
+		</div>
+	</td-layout-nav>
+</td-layout>

@@ -1,5 +1,5 @@
 .example-card {
-	min-width: 40%;
+	max-width: 40%;
 	margin-top: 10px;
 }
 
@@ -19,4 +19,10 @@
 
 .margin-top {
 	margin-top: 20px;
+}
+
+@media only screen and (max-width: 800px) {
+	.example-card {
+		max-width: 90%;
+	}
 }

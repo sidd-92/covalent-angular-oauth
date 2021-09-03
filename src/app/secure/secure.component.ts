@@ -5,61 +5,49 @@ import { UserService } from "../user.service";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: "app-secure",
-  templateUrl: "./secure.component.html",
-  styleUrls: ["./secure.component.scss"],
+	selector: "app-secure",
+	templateUrl: "./secure.component.html",
+	styleUrls: ["./secure.component.scss"],
 })
 export class SecureComponent implements OnInit {
-  message = "";
-  isLoadingResults = false;
-  user: any = {};
+	message = "";
+	isLoadingResults = false;
+	color = "primary";
+	user: any = {};
 
-  constructor(
-    private authService: AuthService,
-    private tokenService: TokenService,
-    private userService: UserService,
-    private router: Router
-  ) {}
+	constructor(private authService: AuthService, private tokenService: TokenService, private userService: UserService, private router: Router) {}
 
-  ngOnInit(): void {
-    this.isLoadingResults = true;
-    let userToken = this.tokenService.getUserToken();
-    this.userService.getUserDetails(userToken).subscribe((userData) => {
-      this.isLoadingResults = false;
-      console.log(userData, "USER DATA");
-      this.user = userData;
-    });
-  }
+	ngOnInit(): void {
+		this.isLoadingResults = true;
+		let userToken = this.tokenService.getUserToken();
+		this.userService.getUserDetails(userToken).subscribe((userData) => {
+			this.isLoadingResults = false;
+			console.log(userData, "USER DATA");
+			if (userData["role"] === "Admin") {
+				this.color = "accent";
+			} else {
+				this.color = "primary";
+			}
+			this.user = userData;
+			localStorage.setItem("last_login_at", userData["last_login_at"]);
+		});
+	}
 
-  logout(): void {
-    let reftoken = this.tokenService.getRefreshToken();
-    let userToken = this.tokenService.getUserToken();
-    this.userService
-      .getUserDetails(userToken)
-      .subscribe((userDetailData: any) => {
-        console.log("USER DETAIL DATA", userDetailData);
-        this.authService.logout(reftoken).subscribe((logoutData: any) => {
-          console.log(logoutData);
-          let lastLoginAt = new Date(userDetailData["last_login_at"]);
-          var thisTime = new Date(); // now
-          var diff = thisTime.getTime() - lastLoginAt.getTime(); // now - Feb 1
-          var totalElapsedTime = Math.ceil(diff / (1000 * 60 * 60 * 24));
-
-          console.log(totalElapsedTime, "TOTAL TIME LAPSED"); // positive number of days
-          this.userService
-            .logUser({
-              username: userToken,
-              last_login_at: userDetailData["last_login_at"],
-              session_duration: diff,
-              loggedIn: false,
-            })
-            .subscribe((data) => {
-              console.log(data);
-              this.router
-                .navigate(["/login"])
-                .then((_) => console.log("Logout"));
-            });
-        });
-      });
-  }
+	logout(): void {
+		let userToken = this.tokenService.getUserToken(); //username
+		let lastLoginAt = new Date(localStorage.getItem("last_login_at"));
+		var thisTime = new Date(); // now
+		var diff = thisTime.getTime() - lastLoginAt.getTime(); // now - Feb 1
+		var totalElapsedTime = Math.ceil(diff / (1000 * 60 * 60 * 24));
+		this.authService
+			.logout({
+				username: userToken,
+				last_login_at: lastLoginAt,
+				session_duration: diff,
+			})
+			.subscribe((logoutData: any) => {
+				console.log(logoutData);
+				this.router.navigate([`/login`]).then((_) => console.log("Logout Successfull"));
+			});
+	}
 }
